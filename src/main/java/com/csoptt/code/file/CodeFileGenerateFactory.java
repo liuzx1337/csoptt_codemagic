@@ -1,6 +1,6 @@
 package com.csoptt.code.file;
 
-import com.csoptt.utils.exception.BaseException;
+import com.csoptt.code.exception.CodeMagicException;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -76,7 +76,7 @@ public class CodeFileGenerateFactory {
         // 1. 根据模版名称确定文件目标路径
         String pathInMap = templateMap.get(templateName);
         if (null == pathInMap) {
-            throw new BaseException("-1", "Template is not prepared.");
+            throw new CodeMagicException("Template is not prepared.");
         }
         if (pathInMap.contains("@middleDir")) {
             pathInMap = pathInMap.replace("@middleDir", packagePath);
@@ -90,7 +90,7 @@ public class CodeFileGenerateFactory {
             dir.mkdirs();
         }
         if (!dir.isDirectory()) {
-            throw new BaseException("-1", "Cannot get template path" + dirPath + ".");
+            throw new CodeMagicException("Cannot get template path" + dirPath + ".");
         }
         File file = new File(filePath);
         if (file.exists()) {
